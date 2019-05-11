@@ -4,6 +4,8 @@ cd C:\Users\user\Documents\develop\my-web-server
 cd C:\Users\user\AndroidStudioProjects\pango_lite
 ============================
 /Users/avicohen/mongodb/bin/mongod --dbpath=/Users/avicohen/mongodb-data/
+cd /Users/avicohen/Documents/dev/backend/pango-light-server
+cd /Users/avicohen/AndroidStudioProjects/pango_lite
 ============================
 C:\Users\user\Downloads\n3-16-14-task-data (1)\n3-16-14-task-data
 ============================
