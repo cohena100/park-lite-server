@@ -1,0 +1,173 @@
+============================
+C:\Users\user\mongodb\bin\mongod.exe --dbpath=C:\Users\user\mongodb-data
+cd C:\Users\user\Documents\develop\my-web-server
+cd C:\Users\user\AndroidStudioProjects\pango_lite
+============================
+/Users/avicohen/mongodb/bin/mongod --dbpath=/Users/avicohen/mongodb-data/
+============================
+C:\Users\user\Downloads\n3-16-14-task-data (1)\n3-16-14-task-data
+============================
+console.log(JSON.stringify(errors.array()));
+
+
+
+!*'();:@&=+$,/?%#[]
+!*'();:@  +$,/?%#[]
+
+
+
+
+
+
+===============================================================================
+
+https://youtu.be/IhsHGJEOSYM
+
+flutter pub pub run intl_translation:extract_to_arb --output-dir=lib/l10n lib/locale/locale.dart
+
+
+flutter pub pub run intl_translation:generate_from_arb --output-dir=lib/l10n --no-use-deferred-loading lib/l10n/intl_he.arb lib/l10n/intl_en.arb lib/l10n/intl_messages.arb lib/locale/locale.dart
+
+
+=========================================
+
+print('avi1');
+print(user.id);
+print(car.id);
+print(location.latitude.toString());
+print(location.longitude.toString());
+print(city.id;
+print(city.name);
+print(rate.id;
+print(rate.name);
+print(car.number);
+print(user.company);
+print(user.token);
+
+
+-------
+
+print('avi2');
+print(userId1);
+print(carId1);
+print(lat1.toString());
+print(lon1.toString());
+print(cityId1);
+print(cityName1);
+print(areaId1);
+print(areaName1);
+print(rateId1);
+print(rateName1);
+print(token1);
+
+============================================
+
+{
+    "parking": {
+        "_id": "5cd424434e5780451872625b",
+        "cityId": "52",
+        "cityName": "תל אביב",
+        "areaId": "20",
+        "areaName": "אלנבי",
+        "rateId": "1685",
+        "rateName": "רחבי העיר",
+        "lat": "32.08173",
+        "lon": "34.79947",
+        "user": "5cd18d1fb8cb2e1438bc5467",
+        "car": "5cd2965295ab5426d809e0a6",
+        "createdAt": "2019-05-09T12:59:47.889Z",
+        "updatedAt": "2019-05-09T12:59:47.889Z",
+        "__v": 0
+    }
+}
+
+
+{
+    "parking": {
+        "_id": "5cd411ba752f0a49583895d5",
+        "cityId": "52",
+        "cityName": "תל אביב",
+        "areaId": "20",
+        "areaName": "אלנבי",
+        "rateId": "1685",
+        "rateName": "רחבי העיר",
+        "lat": "32.08173",
+        "lon": "34.79947",
+        "user": "5cd18d1fb8cb2e1438bc5467",
+        "car": "5cd2965295ab5426d809e0a6",
+        "createdAt": "2019-05-09T11:40:42.517Z",
+        "updatedAt": "2019-05-09T11:40:42.517Z",
+        "__v": 0
+    }
+}
+
+{
+    "validate": {
+        "userId": "5cd18d1fb8cb2e1438bc5467",
+        "validateId": "5cd3d738752f0a49583895bb"
+    }
+}
+
+
+{
+    "user": {
+        "_id": "5cd18d1fb8cb2e1438bc5467",
+        "phone": "0570009557",
+        "cars": [
+            {
+                "_id": "5cd40ef2752f0a49583895d2",
+                "car": {
+                    "_id": "5cd2965295ab5426d809e0a6",
+                    "number": "04455338",
+                    "__v": 0,
+                    "createdAt": "2019-05-08T08:41:54.354Z",
+                    "updatedAt": "2019-05-09T11:28:50.882Z"
+                },
+                "nickname": "בימבה"
+            }
+        ],
+        "createdAt": "2019-05-07T13:50:23.474Z",
+        "updatedAt": "2019-05-09T13:00:12.309Z",
+        "__v": 40,
+        "token": "61b05540-725a-11e9-ad33-6f64fd547f59",
+        "parking": {
+            "_id": "5cd424434e5780451872625b",
+            "cityId": "52",
+            "cityName": "תל אביב",
+            "areaId": "20",
+            "areaName": "אלנבי",
+            "rateId": "1685",
+            "rateName": "רחבי העיר",
+            "lat": "32.08173",
+            "lon": "34.79947",
+            "user": "5cd18d1fb8cb2e1438bc5467",
+            "car": "5cd2965295ab5426d809e0a6",
+            "createdAt": "2019-05-09T12:59:47.889Z",
+            "updatedAt": "2019-05-09T12:59:47.889Z",
+            "__v": 0
+        }
+    }
+}
+
+{
+    "validate": {
+        "validateId": "5cd3ef29752f0a49583895bf"
+    }
+}
+
+
+
+
+{
+    "car": {
+        "_id": "5cd3f0b2752f0a49583895c2",
+        "car": {
+            "_id": "5cd2965295ab5426d809e0a6",
+            "number": "04455338",
+            "__v": 0,
+            "createdAt": "2019-05-08T08:41:54.354Z",
+            "updatedAt": "2019-05-09T09:19:46.820Z"
+        },
+        "nickname": "בימבה"
+    }
+}
