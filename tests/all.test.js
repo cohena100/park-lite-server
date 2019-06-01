@@ -61,7 +61,7 @@ const loginUser1 = () => {
   return request(app).post('/users/login').send(user1);
 };
 
-const loginAndVerifyUser1 = async () => {
+const loginAndValidateUser1 = async () => {
   const res = await loginUser1();
   const userId = res.body.validate.userId;
   const validateId = res.body.validate.validateId;
@@ -72,7 +72,7 @@ const loginAndVerifyUser1 = async () => {
 };
 
 const addUser1 = async () => {
-  const res = await loginAndVerifyUser1();
+  const res = await loginAndValidateUser1();
   user1.token = res.body.user.token;
 };
 
@@ -103,6 +103,11 @@ const addCar1 = async () => {
   res = await sendAddValidate(carData, user1.token);
   car1.carId = res.body.car._id;
   car1.carNumber = res.body.car.car.number;
+};
+
+const addUser1andCar1 = async () => {
+  await addUser1();
+  await addCar1();
 };
 
 describe('user login', () => {
@@ -238,13 +243,13 @@ describe('car operations', () => {
   test('Should not add existing car', async () => {
     await addCar1();
     carData.userId = user1.userId;
-    var res = await sendAdd(carData, user1.token);
+    const res = await sendAdd(carData, user1.token);
     const validateId = res.body.validate.validateId;
     validate1.userId = user1.userId;
     validate1.number = car1.number;
     validate1.nickname = car1.nickname;
     validate1.validateId = validateId;
-    res = await sendAddValidate(validate1, user1.token).expect(400);
+    await sendAddValidate(validate1, user1.token).expect(400);
   });
 
   test('Should not remove parking car', async () => {
@@ -282,8 +287,7 @@ describe('parking operations', () => {
       rateId: '5',
       rateName: 'c',
     };
-    await addUser1();
-    await addCar1();
+    await addUser1andCar1();
   });
 
   test('Should start parking', async () => {
@@ -299,21 +303,26 @@ describe('parking operations', () => {
   });
 
   test('Should not start parking after existing one', async () => {
-    var res = await startParkingUser1().expect(200);
-    res = await startParkingUser1().expect(400);
+    await startParkingUser1().expect(200);
+    await startParkingUser1().expect(400);
   });
 
   test('Should not stop parking after no parking', async () => {
-    var res = await startParkingUser1();
+    const res = await startParkingUser1();
     parkingData.parkingId = res.body.parking._id;
-    res = await stopParkingUser1();
-    res = await stopParkingUser1().expect(400);
+    await stopParkingUser1();
+    await stopParkingUser1().expect(400);
   });
 
   test('Should return existing car and parking after login verify', async () => {
     await parkUser1();
-    const res = await loginAndVerifyUser1();
+    const res = await loginAndValidateUser1();
     expect(res.body).toHaveProperty('user.parking.cityId');
     expect(res.body.user.cars[0].car).toHaveProperty('number');
+  });
+
+  test('Should request validate after token validation failed', async () => {
+    await sendLogout(user1, user1.token).expect(200);
+    await startParkingUser1().expect(401);
   });
 });

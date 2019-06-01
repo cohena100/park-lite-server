@@ -8,7 +8,7 @@ const auth = async (req, res, next) => {
     const user = await User.findById(req.body.userId)
       .populate('cars.car').populate('parking');
     if (!user || user.token !== token) {
-      throw new Error();
+      return res.status(401).send({});
     }
     req.body.user = user;
     next();
