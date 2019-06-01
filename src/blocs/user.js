@@ -23,7 +23,7 @@ const login = async (data) => {
     const validate = pushValidate(newUser, 'login');
     await newUser.save();
     return {
-      status: Status.validate,
+      status: Status.success,
       userId: newUser._id,
       validateId: validate._id,
     };
@@ -31,7 +31,7 @@ const login = async (data) => {
   const validate = pushValidate(user, 'login');
   await user.save();
   return {
-    status: Status.validate,
+    status: Status.success,
     userId: user._id,
     validateId: validate._id,
   };

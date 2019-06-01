@@ -20,8 +20,8 @@ const loginUser = async (req, res) => {
   try {
     const result = await login(req.body);
     switch (result.status) {
-      case Status.validate:
-        return res.status(401).send({
+      case Status.success:
+        return res.status(200).send({
           validate: {
             userId: result.userId,
             validateId: result.validateId,

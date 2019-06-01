@@ -20,8 +20,8 @@ const add = async (req, res) => {
   try {
     const result = await carAdd(req.body);
     switch (result.status) {
-      case Status.validate:
-        return res.status(401).send({
+      case Status.success:
+        return res.status(200).send({
           validate: {
             validateId: result.validateId,
           }

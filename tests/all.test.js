@@ -124,7 +124,7 @@ describe('user login', () => {
   });
 
   test('Should login new user', async () => {
-    var res = await sendLogin(user1).expect(401);
+    var res = await sendLogin(user1).expect(200);
     expect(res.body).toHaveProperty('validate.userId');
     expect(res.body).toHaveProperty('validate.validateId');
     const userId = res.body.validate.userId;
@@ -219,7 +219,7 @@ describe('car operations', () => {
 
   test('Should add car', async () => {
     carData.userId = user1.userId;
-    var res = await sendAdd(carData, user1.token).expect(401);
+    var res = await sendAdd(carData, user1.token).expect(200);
     const validateId = res.body.validate.validateId;
     validate1.userId = user1.userId;
     validate1.number = car1.number;
