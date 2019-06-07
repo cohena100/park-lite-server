@@ -19,17 +19,12 @@ const userRouter = new express.Router();
 const loginUser = async (req, res) => {
   try {
     const result = await login(req.body);
-    switch (result.status) {
-      case Status.success:
-        return res.status(200).send({
-          validate: {
-            userId: result.userId,
-            validateId: result.validateId,
-          }
-        });
-      default:
-        return res.status(400).send({});
-    }
+    return res.status(200).send({
+      validate: {
+        userId: result.userId,
+        validateId: result.validateId,
+      }
+    });
   } catch (e) {
     res.status(400).send({});
   }
@@ -38,14 +33,9 @@ const loginUser = async (req, res) => {
 const loginValidateUser = async (req, res) => {
   try {
     const result = await loginValidate(req.body);
-    switch (result.status) {
-      case Status.success:
-        return res.status(200).send({
-          user: result.user,
-        });
-      default:
-        return res.status(400).send({});
-    }
+    return res.status(200).send({
+      user: result.user,
+    });
   } catch (e) {
     res.status(400).send({});
   }
@@ -54,14 +44,9 @@ const loginValidateUser = async (req, res) => {
 const logoutUser = async (req, res) => {
   try {
     const result = await logout(req.body);
-    switch (result.status) {
-      case Status.success:
-        return res.status(200).send({
-          user: result.user,
-        });
-      default:
-        return res.status(400).send({});
-    }
+    return res.status(200).send({
+      user: result.user,
+    });
   } catch (e) {
     res.status(400).send({});
   }

@@ -1,7 +1,4 @@
 const {
-  Status
-} = require('./status');
-const {
   User,
   Validate,
 } = require('../models/user');
@@ -18,7 +15,6 @@ const add = async (data) => {
   const validate = pushValidate(user, 'car');
   await user.save();
   return {
-    status: Status.success,
     validateId: validate._id,
   };
 };
@@ -51,7 +47,6 @@ const addValidate = async (data) => {
   pullValidate(user, data.validateId);
   await user.save();
   return {
-    status: Status.success,
     car: user.cars[user.cars.length - 1],
   };
 };

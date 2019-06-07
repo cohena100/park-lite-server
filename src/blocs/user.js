@@ -1,7 +1,4 @@
 const {
-  Status
-} = require('./status');
-const {
   User,
   Validate
 } = require('../models/user');
@@ -23,7 +20,6 @@ const login = async (data) => {
     const validate = pushValidate(newUser, 'login');
     await newUser.save();
     return {
-      status: Status.success,
       userId: newUser._id,
       validateId: validate._id,
     };
@@ -31,7 +27,6 @@ const login = async (data) => {
   const validate = pushValidate(user, 'login');
   await user.save();
   return {
-    status: Status.success,
     userId: user._id,
     validateId: validate._id,
   };
@@ -47,7 +42,6 @@ const loginValidate = async (data) => {
   user.token = uuidv1();
   await user.save();
   return {
-    status: Status.success,
     user,
   };
 };
@@ -57,7 +51,6 @@ const logout = async (data) => {
   user.token = undefined;
   await user.save();
   return {
-    status: Status.success,
     user,
   };
 };

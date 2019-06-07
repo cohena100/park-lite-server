@@ -1,7 +1,4 @@
 const {
-  Status
-} = require('./status');
-const {
   User,
   Validate
 } = require('../models/user');

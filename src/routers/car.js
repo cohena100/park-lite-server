@@ -19,16 +19,11 @@ const carRouter = new express.Router();
 const add = async (req, res) => {
   try {
     const result = await carAdd(req.body);
-    switch (result.status) {
-      case Status.success:
-        return res.status(200).send({
-          validate: {
-            validateId: result.validateId,
-          }
-        });
-      default:
-        return res.status(400).send({});
-    }
+    return res.status(200).send({
+      validate: {
+        validateId: result.validateId,
+      }
+    });
   } catch (e) {
     res.status(400).send({});
   }
@@ -37,14 +32,9 @@ const add = async (req, res) => {
 const addValidate = async (req, res) => {
   try {
     const result = await carAddValidate(req.body);
-    switch (result.status) {
-      case Status.success:
-        return res.status(200).send({
-          car: result.car,
-        });
-      default:
-        return res.status(400).send({});
-    }
+    return res.status(200).send({
+      car: result.car,
+    });
   } catch (e) {
     res.status(400).send({});
   }
