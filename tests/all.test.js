@@ -207,11 +207,11 @@ describe('car operations', () => {
     parkingData = {
       lat: '1',
       lon: '2',
-      cityId: '3',
+      cityId: '1',
       cityName: 'a',
-      areaId: '4',
+      areaId: '2',
       areaName: 'b',
-      rateId: '5',
+      rateId: '1',
       rateName: 'c',
     };
     await addUser1();
@@ -280,11 +280,11 @@ describe('parking operations', () => {
     parkingData = {
       lat: '1',
       lon: '2',
-      cityId: '3',
+      cityId: '8',
       cityName: 'a',
-      areaId: '4',
+      areaId: '9',
       areaName: 'b',
-      rateId: '5',
+      rateId: '1',
       rateName: 'c',
     };
     await addUser1andCar1();
