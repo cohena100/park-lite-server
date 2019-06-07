@@ -1,3 +1,4 @@
+const path = require('path');
 const express = require('express');
 require('./db/db');
 const {
@@ -23,6 +24,9 @@ app.use(userRouter);
 app.use(parkRouter);
 app.use(carRouter);
 
+app.get('/pay', function(req, res) {
+  res.sendFile(path.join(__dirname, '/index.html'));
+});
 app.all('*', (req, res) => {
   res.status(404).send({});
 });
