@@ -1,8 +1,5 @@
 const express = require('express');
 const {
-  Status
-} = require('../blocs/status');
-const {
   add: carAdd,
   addValidate: carAddValidate,
   remove: carRemove,
