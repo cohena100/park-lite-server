@@ -23,7 +23,7 @@ const start = async (data) => {
     throw new Error();
   }
   const rate = area.rates.filter((r) => r.id === data.rateId).pop();
-  if (!area) {
+  if (!rate) {
     throw new Error();
   }
   const parking = new Parking({
