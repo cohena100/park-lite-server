@@ -34,6 +34,18 @@ const ParkingSchema = new Schema({
     required: true,
     trim: true,
   },
+  ratePrice: {
+    type: String,
+    required: true,
+    trim: true,
+  },
+  startDate: {
+    type: Date,
+    default: Date.now,
+  },
+  endDate: {
+    type: Date,
+  },
   lat: {
     type: String,
     required: true,

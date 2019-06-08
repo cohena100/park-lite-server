@@ -33,6 +33,7 @@ const start = async (data) => {
     areaName: data.areaName,
     rateId: data.rateId,
     rateName: data.rateName,
+    ratePrice: rate.price,
     lat: data.lat,
     lon: data.lon,
     user: user,
@@ -53,6 +54,7 @@ const stop = async (data) => {
   if (!parking) {
     throw new Error();
   }
+  parking.endDate = Date.now;
   user.parking = undefined;
   await user.save();
   return parking;
