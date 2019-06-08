@@ -1,7 +1,7 @@
 const express = require('express');
 const {
   start: parkStart,
-  stop: parkStop,
+  end: parkEnd,
 } = require('../blocs/park');
 const {
   check,
@@ -23,9 +23,9 @@ const start = async (req, res) => {
   }
 };
 
-const stop = async (req, res) => {
+const end = async (req, res) => {
   try {
-    const parking = await parkStop(req.body);
+    const parking = await parkEnd(req.body);
     return res.status(200).send({
       parking,
     });
@@ -55,7 +55,7 @@ parkRouter.post('/parkings/start', [
   await start(req, res);
 });
 
-parkRouter.post('/parkings/stop', [
+parkRouter.post('/parkings/end', [
   header('Authorization').not().isEmpty().isUUID(),
   check('userId').not().isEmpty(),
   check('parkingId').not().isEmpty(),
@@ -65,7 +65,7 @@ parkRouter.post('/parkings/stop', [
   if (!errors.isEmpty()) {
     return res.status(400).json({});
   }
-  await stop(req, res);
+  await end(req, res);
 });
 
 module.exports = {

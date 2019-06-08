@@ -52,8 +52,8 @@ const sendStart = (data, token) => {
     .set('Authorization', token).send(data);
 };
 
-const sendStop = (data, token) => {
-  return request(app).post('/parkings/stop')
+const sendEnd = (data, token) => {
+  return request(app).post('/parkings/end')
     .set('Authorization', token).send(data);
 };
 
@@ -82,8 +82,8 @@ const startParkingUser1 = () => {
   return sendStart(parkingData, user1.token);
 };
 
-const stopParkingUser1 = () => {
-  return sendStop(parkingData, user1.token);
+const endParkingUser1 = () => {
+  return sendEnd(parkingData, user1.token);
 };
 
 const parkUser1 = async () => {
@@ -293,13 +293,15 @@ describe('parking operations', () => {
   test('Should start parking', async () => {
     const res = await startParkingUser1().expect(200);
     expect(res.body).toHaveProperty('parking._id');
+    expect(res.body).toHaveProperty('parking.startDate');
   });
 
-  test('Should stop parking', async () => {
+  test('Should end parking', async () => {
     var res = await startParkingUser1();
     parkingData.parkingId = res.body.parking._id;
-    res = await stopParkingUser1().expect(200);
+    res = await endParkingUser1().expect(200);
     expect(res.body).toHaveProperty('parking._id');
+    expect(res.body).toHaveProperty('parking.endDate');
   });
 
   test('Should not start parking after existing one', async () => {
@@ -307,11 +309,11 @@ describe('parking operations', () => {
     await startParkingUser1().expect(400);
   });
 
-  test('Should not stop parking after no parking', async () => {
+  test('Should not end parking after no parking', async () => {
     const res = await startParkingUser1();
     parkingData.parkingId = res.body.parking._id;
-    await stopParkingUser1();
-    await stopParkingUser1().expect(400);
+    await endParkingUser1();
+    await endParkingUser1().expect(400);
   });
 
   test('Should return existing car and parking after login verify', async () => {

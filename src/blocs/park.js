@@ -45,7 +45,7 @@ const start = async (data) => {
   return await Parking.findById(parking._id);
 };
 
-const stop = async (data) => {
+const end = async (data) => {
   const user = data.user;
   if (!user.parking) {
     throw new Error();
@@ -54,7 +54,8 @@ const stop = async (data) => {
   if (!parking) {
     throw new Error();
   }
-  parking.endDate = Date.now;
+  parking.endDate = new Date();
+  await parking.save();
   user.parking = undefined;
   await user.save();
   return parking;
@@ -62,5 +63,5 @@ const stop = async (data) => {
 
 module.exports = {
   start,
-  stop,
+  end,
 };
