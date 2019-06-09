@@ -35,7 +35,7 @@ const ParkingSchema = new Schema({
     trim: true,
   },
   ratePrice: {
-    type: String,
+    type: Number,
     required: true,
     trim: true,
   },

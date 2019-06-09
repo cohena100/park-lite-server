@@ -4,6 +4,9 @@ const {
   end: parkEnd,
 } = require('../blocs/park');
 const {
+  create: payCreate,
+} = require('../blocs/pay');
+const {
   check,
   header,
   validationResult
@@ -26,8 +29,11 @@ const start = async (req, res) => {
 const end = async (req, res) => {
   try {
     const parking = await parkEnd(req.body);
+    req.body.parking = parking;
+    const payment = await payCreate(req.body);
     return res.status(200).send({
       parking,
+      payment,
     });
   } catch (e) {
     res.status(400).send({});

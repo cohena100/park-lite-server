@@ -1,3 +1,6 @@
+const pay = require('../src/proxies/pay');
+jest.mock('../src/proxies/pay');
+
 const request = require('supertest');
 var {
   app
@@ -7,6 +10,7 @@ const {
 } = require('../src/models/user');
 const Car = require('../src/models/car');
 const Parking = require('../src/models/parking');
+const Payment = require('../src/models/payment');
 
 const code = '8261';
 const phone1 = '1';
@@ -110,11 +114,18 @@ const addUser1andCar1 = async () => {
   await addCar1();
 };
 
+beforeEach(async () => {
+  pay.create.mockResolvedValue({
+    id: '100',
+  });
+  await User.deleteMany();
+  await Car.deleteMany();
+  await Parking.deleteMany();
+  await Payment.deleteMany();
+});
+
 describe('user login', () => {
   beforeEach(async () => {
-    await User.deleteMany();
-    await Car.deleteMany();
-    await Parking.deleteMany();
     user1 = {
       phone: phone1,
     };

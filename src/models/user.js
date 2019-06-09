@@ -39,6 +39,10 @@ const UserSchema = new Schema({
     type: Schema.Types.ObjectId,
     ref: 'Parking',
   },
+  payment: {
+    type: Schema.Types.ObjectId,
+    ref: 'Payment',
+  },
 }, {
   timestamps: true
 });

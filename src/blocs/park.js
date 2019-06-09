@@ -47,7 +47,7 @@ const start = async (data) => {
 
 const end = async (data) => {
   const user = data.user;
-  if (!user.parking) {
+  if (!user.parking || user.payment) {
     throw new Error();
   }
   const parking = await Parking.findById(data.parkingId);
@@ -56,8 +56,6 @@ const end = async (data) => {
   }
   parking.endDate = new Date();
   await parking.save();
-  user.parking = undefined;
-  await user.save();
   return parking;
 };
 

@@ -27,6 +27,7 @@ app.use(carRouter);
 app.get('/pay', function(req, res) {
   res.sendFile(path.join(__dirname, '/index.html'));
 });
+
 app.all('*', (req, res) => {
   res.status(404).send({});
 });
