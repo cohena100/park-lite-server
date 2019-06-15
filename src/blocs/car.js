@@ -15,7 +15,7 @@ const add = async (data) => {
   const validate = pushValidate(user, 'car');
   await user.save();
   return {
-    validateId: validate._id,
+    validateId: validate.id,
   };
 };
 

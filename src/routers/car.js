@@ -1,50 +1,51 @@
 const express = require('express');
 const {
+  check,
+  header,
+  validationResult,
+} = require('express-validator/check');
+const HttpStatus = require('http-status-codes');
+const auth = require('../middleware/auth');
+const {
   add: carAdd,
   addValidate: carAddValidate,
   remove: carRemove,
 } = require('../blocs/car');
-const {
-  check,
-  header,
-  validationResult
-} = require('express-validator/check');
-const auth = require('../middleware/auth');
 
 const carRouter = new express.Router();
 
 const add = async (req, res) => {
   try {
     const result = await carAdd(req.body);
-    return res.status(200).send({
+    return res.status(HttpStatus.OK).send({
       validate: {
         validateId: result.validateId,
       }
     });
   } catch (e) {
-    res.status(400).send({});
+    res.status(HttpStatus.BAD_REQUEST).send({});
   }
 };
 
 const addValidate = async (req, res) => {
   try {
     const result = await carAddValidate(req.body);
-    return res.status(200).send({
+    return res.status(HttpStatus.OK).send({
       car: result.car,
     });
   } catch (e) {
-    res.status(400).send({});
+    res.status(HttpStatus.BAD_REQUEST).send({});
   }
 };
 
 const remove = async (req, res) => {
   try {
     const car = await carRemove(req.body);
-    return res.status(200).send({
+    return res.status(HttpStatus.OK).send({
       car,
     });
   } catch (e) {
-    res.status(400).send({});
+    res.status(HttpStatus.BAD_REQUEST).send({});
   }
 };
 
@@ -55,7 +56,7 @@ carRouter.post('/cars/add', [
 ], async (req, res) => {
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
-    return res.status(400).json({});
+    return res.status(HttpStatus.BAD_REQUEST).json({});
   }
   await add(req, res);
 });
@@ -71,7 +72,7 @@ carRouter.post('/cars/addValidate', [
 ], async (req, res) => {
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
-    return res.status(400).json({});
+    return res.status(HttpStatus.BAD_REQUEST).json({});
   }
   await addValidate(req, res);
 });
@@ -84,7 +85,7 @@ carRouter.post('/cars/remove', [
 ], async (req, res) => {
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
-    return res.status(400).json({});
+    return res.status(HttpStatus.BAD_REQUEST).json({});
   }
   await remove(req, res);
 });

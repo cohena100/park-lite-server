@@ -2,6 +2,7 @@ const pay = require('../src/proxies/pay');
 jest.mock('../src/proxies/pay');
 
 const request = require('supertest');
+const HttpStatus = require('http-status-codes');
 var {
   app
 } = require('../src/app');
@@ -22,6 +23,7 @@ var nickname1 = 'a';
 var parkingData;
 var loginData;
 var carData;
+var payData;
 
 const sendLogin = (data) => {
   return request(app).post('/users/login').send(data);
@@ -61,8 +63,26 @@ const sendEnd = (data, token) => {
     .set('Authorization', token).send(data);
 };
 
+const sendPayWebhook = (data) => {
+  return request(app).post('/pay/webhook').send(data);
+};
+
 const loginUser1 = () => {
   return request(app).post('/users/login').send(user1);
+};
+
+const startParkingUser1 = () => {
+  parkingData.userId = user1.userId;
+  parkingData.carId = car1.carId;
+  return sendStart(parkingData, user1.token);
+};
+
+const endParkingUser1 = () => {
+  return sendEnd(parkingData, user1.token);
+};
+
+const paymentUser1 = () => {
+  return sendPayWebhook(payData);
 };
 
 const loginAndValidateUser1 = async () => {
@@ -80,20 +100,21 @@ const addUser1 = async () => {
   user1.token = res.body.user.token;
 };
 
-const startParkingUser1 = () => {
-  parkingData.userId = user1.userId;
-  parkingData.carId = car1.carId;
-  return sendStart(parkingData, user1.token);
-};
-
-const endParkingUser1 = () => {
-  return sendEnd(parkingData, user1.token);
-};
-
 const parkUser1 = async () => {
   const res = await startParkingUser1();
   parkingData.parkingId = res.body.parking._id;
   parkingData.parkingCityId = res.body.parking.cityId;
+};
+
+const endParkUser1 = async () => {
+  const res = await endParkingUser1();
+  payData.userId = user1.userId;
+  payData.paymentId = res.body.payment._id;
+};
+
+const startAndEndParkUser1 = async () => {
+  await parkUser1();
+  await endParkUser1();
 };
 
 const addCar1 = async () => {
@@ -114,10 +135,13 @@ const addUser1andCar1 = async () => {
   await addCar1();
 };
 
-beforeEach(async () => {
+beforeAll(async () => {
   pay.create.mockResolvedValue({
     id: '100',
   });
+});
+
+beforeEach(async () => {
   await User.deleteMany();
   await Car.deleteMany();
   await Parking.deleteMany();
@@ -132,17 +156,18 @@ describe('user login', () => {
     validate1 = {
       code,
     };
+    payData = {};
   });
 
   test('Should login new user', async () => {
-    var res = await sendLogin(user1).expect(200);
+    var res = await sendLogin(user1).expect(HttpStatus.OK);
     expect(res.body).toHaveProperty('validate.userId');
     expect(res.body).toHaveProperty('validate.validateId');
     const userId = res.body.validate.userId;
     const validateId = res.body.validate.validateId;
     validate1.userId = userId;
     validate1.validateId = validateId;
-    res = await sendLoginValidate(validate1).expect(200);
+    res = await sendLoginValidate(validate1).expect(HttpStatus.OK);
     expect(res.body).toHaveProperty('user._id');
     expect(res.body).toHaveProperty('user.phone', user1.phone);
     expect(res.body).toHaveProperty('user.token');
@@ -182,7 +207,7 @@ describe('user login', () => {
     const validateId = res.body.validate.validateId;
     validate1.userId = previousUserId;
     validate1.validateId = validateId;
-    await sendLoginValidate(validate1).expect(200);
+    await sendLoginValidate(validate1).expect(HttpStatus.OK);
   });
 
   test('There should be only one kind of login validate type in db', async () => {
@@ -194,16 +219,13 @@ describe('user login', () => {
 
   test('Should logout user', async () => {
     await addUser1();
-    const res = await sendLogout(user1, user1.token).expect(200);
+    const res = await sendLogout(user1, user1.token).expect(HttpStatus.OK);
     expect(res.body.user.token).toBeUndefined();
   });
 });
 
 describe('car operations', () => {
   beforeEach(async () => {
-    await User.deleteMany();
-    await Car.deleteMany();
-    await Parking.deleteMany();
     user1 = {
       phone: phone1,
     };
@@ -225,18 +247,19 @@ describe('car operations', () => {
       rateId: '1',
       rateName: 'c',
     };
+    payData = {};
     await addUser1();
   });
 
   test('Should add car', async () => {
     carData.userId = user1.userId;
-    var res = await sendAdd(carData, user1.token).expect(200);
+    var res = await sendAdd(carData, user1.token).expect(HttpStatus.OK);
     const validateId = res.body.validate.validateId;
     validate1.userId = user1.userId;
     validate1.number = car1.number;
     validate1.nickname = car1.nickname;
     validate1.validateId = validateId;
-    res = await sendAddValidate(validate1, user1.token).expect(200);
+    res = await sendAddValidate(validate1, user1.token).expect(HttpStatus.OK);
     car1.carId = res.body.car._id;
     expect(res.body).toHaveProperty('car._id');
     expect(res.body).toHaveProperty('car.car._id');
@@ -248,7 +271,7 @@ describe('car operations', () => {
     await addCar1();
     carData.userId = user1.userId;
     carData.carId = car1.carId;
-    await sendRemove(carData, user1.token).expect(200);
+    await sendRemove(carData, user1.token).expect(HttpStatus.OK);
   });
 
   test('Should not add existing car', async () => {
@@ -260,7 +283,7 @@ describe('car operations', () => {
     validate1.number = car1.number;
     validate1.nickname = car1.nickname;
     validate1.validateId = validateId;
-    await sendAddValidate(validate1, user1.token).expect(400);
+    await sendAddValidate(validate1, user1.token).expect(HttpStatus.BAD_REQUEST);
   });
 
   test('Should not remove parking car', async () => {
@@ -268,16 +291,13 @@ describe('car operations', () => {
     await startParkingUser1();
     carData.userId = user1.userId;
     carData.carId = car1.carId;
-    await sendRemove(carData, user1.token).expect(400);
+    await sendRemove(carData, user1.token).expect(HttpStatus.BAD_REQUEST);
   });
 
 });
 
 describe('parking operations', () => {
   beforeEach(async () => {
-    await User.deleteMany();
-    await Car.deleteMany();
-    await Parking.deleteMany();
     user1 = {
       phone: phone1,
     };
@@ -298,11 +318,12 @@ describe('parking operations', () => {
       rateId: '1',
       rateName: 'c',
     };
+    payData = {};
     await addUser1andCar1();
   });
 
   test('Should start parking', async () => {
-    const res = await startParkingUser1().expect(200);
+    const res = await startParkingUser1().expect(HttpStatus.OK);
     expect(res.body).toHaveProperty('parking._id');
     expect(res.body).toHaveProperty('parking.startDate');
   });
@@ -310,21 +331,22 @@ describe('parking operations', () => {
   test('Should end parking', async () => {
     var res = await startParkingUser1();
     parkingData.parkingId = res.body.parking._id;
-    res = await endParkingUser1().expect(200);
+    res = await endParkingUser1().expect(HttpStatus.OK);
     expect(res.body).toHaveProperty('parking._id');
     expect(res.body).toHaveProperty('parking.endDate');
+    expect(res.body).toHaveProperty('payment._id');
   });
 
   test('Should not start parking after existing one', async () => {
-    await startParkingUser1().expect(200);
-    await startParkingUser1().expect(400);
+    await startParkingUser1().expect(HttpStatus.OK);
+    await startParkingUser1().expect(HttpStatus.BAD_REQUEST);
   });
 
   test('Should not end parking after no parking', async () => {
     const res = await startParkingUser1();
     parkingData.parkingId = res.body.parking._id;
     await endParkingUser1();
-    await endParkingUser1().expect(400);
+    await endParkingUser1().expect(HttpStatus.BAD_REQUEST);
   });
 
   test('Should return existing car and parking after login verify', async () => {
@@ -335,7 +357,15 @@ describe('parking operations', () => {
   });
 
   test('Should request validate after token validation failed', async () => {
-    await sendLogout(user1, user1.token).expect(200);
-    await startParkingUser1().expect(401);
+    await sendLogout(user1, user1.token).expect(HttpStatus.OK);
+    await startParkingUser1().expect(HttpStatus.UNAUTHORIZED);
   });
+
+  test('Should be able to pay for ended parking', async () => {
+    await startAndEndParkUser1();
+    const res = await paymentUser1().expect(HttpStatus.OK);
+    var user = await User.findById(user1.userId);
+    expect(user).not.toHaveProperty('parking', 'payment');
+  });
+
 });

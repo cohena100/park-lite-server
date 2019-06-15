@@ -20,15 +20,15 @@ const login = async (data) => {
     const validate = pushValidate(newUser, 'login');
     await newUser.save();
     return {
-      userId: newUser._id,
-      validateId: validate._id,
+      userId: newUser.id,
+      validateId: validate.id,
     };
   }
   const validate = pushValidate(user, 'login');
   await user.save();
   return {
-    userId: user._id,
-    validateId: validate._id,
+    userId: user.id,
+    validateId: validate.id,
   };
 };
 

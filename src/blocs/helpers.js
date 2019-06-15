@@ -25,7 +25,7 @@ const pullValidate = (user, validateId) => {
 
 const checkValidate = (user, validateId) => {
   const validate = user.validates.id(validateId);
-  return validate != null ? true : false;
+  return validate ? true : false;
 };
 
 module.exports = {

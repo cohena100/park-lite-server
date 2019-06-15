@@ -1,28 +1,29 @@
 const express = require('express');
 const {
+  check,
+  header,
+  validationResult,
+} = require('express-validator/check');
+const HttpStatus = require('http-status-codes');
+const auth = require('../middleware/auth');
+const {
   start: parkStart,
   end: parkEnd,
 } = require('../blocs/park');
 const {
   create: payCreate,
 } = require('../blocs/pay');
-const {
-  check,
-  header,
-  validationResult
-} = require('express-validator/check');
-const auth = require('../middleware/auth');
 
 const parkRouter = new express.Router();
 
 const start = async (req, res) => {
   try {
     const parking = await parkStart(req.body);
-    return res.status(200).send({
+    return res.status(HttpStatus.OK).send({
       parking,
     });
   } catch (e) {
-    res.status(400).send({});
+    res.status(HttpStatus.BAD_REQUEST).send({});
   }
 };
 
@@ -31,12 +32,12 @@ const end = async (req, res) => {
     const parking = await parkEnd(req.body);
     req.body.parking = parking;
     const payment = await payCreate(req.body);
-    return res.status(200).send({
+    return res.status(HttpStatus.OK).send({
       parking,
       payment,
     });
   } catch (e) {
-    res.status(400).send({});
+    res.status(HttpStatus.BAD_REQUEST).send({});
   }
 };
 
@@ -56,7 +57,7 @@ parkRouter.post('/parkings/start', [
 ], async (req, res) => {
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
-    return res.status(400).json({});
+    return res.status(HttpStatus.BAD_REQUEST).json({});
   }
   await start(req, res);
 });
@@ -69,7 +70,7 @@ parkRouter.post('/parkings/end', [
 ], async (req, res) => {
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
-    return res.status(400).json({});
+    return res.status(HttpStatus.BAD_REQUEST).json({});
   }
   await end(req, res);
 });

@@ -1,3 +1,4 @@
+const HttpStatus = require('http-status-codes');
 const {
   User,
 } = require('../models/user');
@@ -8,12 +9,12 @@ const auth = async (req, res, next) => {
     const user = await User.findById(req.body.userId)
       .populate('cars.car').populate('parking').populate('payment');
     if (!user || user.token !== token) {
-      return res.status(401).send({});
+      return res.status(HttpStatus.UNAUTHORIZED).send({});
     }
     req.body.user = user;
     next();
   } catch (e) {
-    res.status(400).send({});
+    res.status(HttpStatus.BAD_REQUEST).send({});
   }
 };
 

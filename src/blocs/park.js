@@ -36,13 +36,13 @@ const start = async (data) => {
     ratePrice: rate.price,
     lat: data.lat,
     lon: data.lon,
-    user: user,
-    car: car.car
+    user: user.id,
+    car: car.car.id,
   });
-  user.parking = parking._id;
+  user.parking = parking.id;
   await parking.save();
   await user.save();
-  return await Parking.findById(parking._id);
+  return await Parking.findById(parking.id);
 };
 
 const end = async (data) => {

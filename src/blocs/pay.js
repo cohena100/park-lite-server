@@ -1,13 +1,13 @@
 const moment = require('moment');
+const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
+const {
+  create: payCreate,
+} = require('../proxies/pay');
 const {
   User,
 } = require('../models/user');
 const Parking = require('../models/parking');
 const Payment = require('../models/payment');
-const {
-  create: payCreate,
-} = require('../proxies/pay');
-const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
 
 const create = async (data) => {
   const user = data.user;
@@ -20,14 +20,25 @@ const create = async (data) => {
   const payment = new Payment({
     amount,
     sessionId: session.id,
-    parking: parking._id,
+    parking: parking.id,
   });
   await payment.save();
-  user.payment = payment._id;
+  user.payment = payment.id;
   await user.save();
-  return await Payment.findById(payment._id);
+  return await Payment.findById(payment.id);
+};
+
+const pay = async (data) => {
+  const user = await User.findById(data.userId).populate('payment');
+  if (!user || !user.payment || user.payment.id !== data.paymentId) {
+    throw new Error();
+  }
+  user.payment = undefined;
+  user.parking = undefined;
+  await user.save();
 };
 
 module.exports = {
   create,
+  pay,
 };

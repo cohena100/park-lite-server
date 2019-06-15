@@ -1,51 +1,52 @@
 const express = require('express');
 const {
-  login,
-  loginValidate,
-  logout,
-} = require('../blocs/user');
-const {
   check,
   header,
   validationResult,
 } = require('express-validator/check');
+const HttpStatus = require('http-status-codes');
 const auth = require('../middleware/auth');
+const {
+  login,
+  loginValidate,
+  logout,
+} = require('../blocs/user');
 
 const userRouter = new express.Router();
 
 const loginUser = async (req, res) => {
   try {
     const result = await login(req.body);
-    return res.status(200).send({
+    return res.status(HttpStatus.OK).send({
       validate: {
         userId: result.userId,
         validateId: result.validateId,
       }
     });
   } catch (e) {
-    res.status(400).send({});
+    res.status(HttpStatus.BAD_REQUEST).send({});
   }
 };
 
 const loginValidateUser = async (req, res) => {
   try {
     const result = await loginValidate(req.body);
-    return res.status(200).send({
+    return res.status(HttpStatus.OK).send({
       user: result.user,
     });
   } catch (e) {
-    res.status(400).send({});
+    res.status(HttpStatus.BAD_REQUEST).send({});
   }
 };
 
 const logoutUser = async (req, res) => {
   try {
     const result = await logout(req.body);
-    return res.status(200).send({
+    return res.status(HttpStatus.OK).send({
       user: result.user,
     });
   } catch (e) {
-    res.status(400).send({});
+    res.status(HttpStatus.BAD_REQUEST).send({});
   }
 };
 
@@ -54,7 +55,7 @@ userRouter.post('/users/login', [
 ], async (req, res) => {
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
-    return res.status(400).json({});
+    return res.status(HttpStatus.BAD_REQUEST).json({});
   }
   await loginUser(req, res);
 });
@@ -66,7 +67,7 @@ userRouter.post('/users/loginValidate', [
 ], async (req, res) => {
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
-    return res.status(400).json({});
+    return res.status(HttpStatus.BAD_REQUEST).json({});
   }
   await loginValidateUser(req, res);
 });
@@ -78,7 +79,7 @@ userRouter.post('/users/logout', [
 ], async (req, res) => {
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
-    return res.status(400).json({});
+    return res.status(HttpStatus.BAD_REQUEST).json({});
   }
   await logoutUser(req, res);
 });
