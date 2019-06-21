@@ -34,10 +34,8 @@ const create = async (data) => {
 };
 
 const pay = async (req) => {
-  console.log('avi');
   const sig = req.headers['stripe-signature'];
-  console.log(sig);
-  console.log(endpointSecret);
+  console.log('avi');
   const event = stripe.webhooks.constructEvent(req.body, sig, endpointSecret);
   console.log('avi2');
   if (event.type === 'checkout.session.completed') {

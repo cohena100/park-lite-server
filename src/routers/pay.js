@@ -5,6 +5,7 @@ const {
   validationResult,
 } = require('express-validator/check');
 const HttpStatus = require('http-status-codes');
+const bodyParser = require('body-parser');
 const auth = require('../middleware/auth');
 const {
   pay: payPay,
@@ -34,17 +35,19 @@ payRouter.post('/pay/webhook', [
   await pay(req, res);
 });
 
-payRouter.post('/payments/webhook', async (req, res) => {
+payRouter.post('/payments/webhook', bodyParser.raw({
+  type: 'application/json'
+}), async (req, res) => {
   await pay(req, res);
 });
 
-payRouter.post('/payments/success', (req, res) => {
+payRouter.get('/payments/success', (req, res) => {
   return res.status(HttpStatus.OK).json({
     msg: 'success',
   });
 });
 
-payRouter.post('/payments/cancel', (req, res) => {
+payRouter.get('/payments/cancel', (req, res) => {
   return res.status(HttpStatus.OK).json({
     msg: 'cancel',
   });
