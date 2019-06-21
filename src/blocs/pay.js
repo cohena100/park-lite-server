@@ -34,6 +34,7 @@ const create = async (data) => {
 };
 
 const pay = async (req) => {
+  console.log(JSON.stringify(errors.array()));
   const metadata = JSON.parse(session.client_reference_id);
   const sig = req.headers['stripe-signature'];
   const event = stripe.webhooks.constructEvent(req.body, sig, endpointSecret);
