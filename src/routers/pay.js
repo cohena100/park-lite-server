@@ -14,14 +14,12 @@ const payRouter = new express.Router();
 
 const pay = async (req, res) => {
   try {
-    console.log('avi');
-    console.log(JSON.stringify(req));
     const result = await payPay(req);
-    return res.status(HttpStatus.OK).send({
+    return res.status(HttpStatus.OK).json({
       received: true,
     });
   } catch (e) {
-    res.status(HttpStatus.BAD_REQUEST).send({});
+    res.status(HttpStatus.BAD_REQUEST).json({});
   }
 };
 
@@ -37,17 +35,19 @@ payRouter.post('/pay/webhook', [
 });
 
 payRouter.post('/payments/webhook', async (req, res) => {
+  console.log('avi');
+  console.log(JSON.stringify(req));
   await pay(req, res);
 });
 
-payRouter.post('/payments/success', async (req, res) => {
-  return res.status(HttpStatus.OK).send({
+payRouter.post('/payments/success', (req, res) => {
+  return res.status(HttpStatus.OK).json({
     msg: 'success',
   });
 });
 
-payRouter.post('/payments/cancel', async (req, res) => {
-  return res.status(HttpStatus.OK).send({
+payRouter.post('/payments/cancel', (req, res) => {
+  return res.status(HttpStatus.OK).json({
     msg: 'cancel',
   });
 });
