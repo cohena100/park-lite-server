@@ -34,12 +34,12 @@ const create = async (data) => {
 };
 
 const pay = async (req) => {
-  console.log(JSON.stringify(errors.array()));
-  const metadata = JSON.parse(session.client_reference_id);
+  console.log(JSON.stringify(req));
   const sig = req.headers['stripe-signature'];
   const event = stripe.webhooks.constructEvent(req.body, sig, endpointSecret);
   if (event.type === 'checkout.session.completed') {
     const session = event.data.object;
+    const metadata = JSON.parse(session.client_reference_id);
     const user = await User.findById(metadata.userId).populate('payment');
     if (!user || !user.payment || user.payment.id !== metadata.paymentId) {
       throw new Error();
