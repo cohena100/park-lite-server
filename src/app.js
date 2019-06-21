@@ -21,10 +21,10 @@ app.get('/', (req, res) => {
   res.status(HttpStatus.OK).send({});
 });
 
+app.use(payRouter);
 app.use(userRouter);
 app.use(parkRouter);
 app.use(carRouter);
-app.use(payRouter);
 
 app.get('/pay', function(req, res) {
   res.sendFile(path.join(__dirname, '/index.html'));
