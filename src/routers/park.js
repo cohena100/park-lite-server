@@ -15,15 +15,16 @@ const {
 } = require('../blocs/pay');
 
 const parkRouter = new express.Router();
+parkRouter.use(express.json());
 
 const start = async (req, res) => {
   try {
     const parking = await parkStart(req.body);
-    return res.status(HttpStatus.OK).send({
+    return res.status(HttpStatus.OK).json({
       parking,
     });
   } catch (e) {
-    res.status(HttpStatus.BAD_REQUEST).send({});
+    res.status(HttpStatus.BAD_REQUEST).json({});
   }
 };
 
@@ -32,17 +33,16 @@ const end = async (req, res) => {
     const parking = await parkEnd(req.body);
     req.body.parking = parking;
     const payment = await payCreate(req.body);
-    return res.status(HttpStatus.OK).send({
+    return res.status(HttpStatus.OK).json({
       parking,
       payment,
     });
   } catch (e) {
-    res.status(HttpStatus.BAD_REQUEST).send({});
+    res.status(HttpStatus.BAD_REQUEST).json({});
   }
 };
 
 parkRouter.post('/parkings/start', [
-  express.json(),
   header('Authorization').not().isEmpty().isUUID(),
   check('userId').not().isEmpty(),
   check('carId').not().isEmpty(),
@@ -64,7 +64,6 @@ parkRouter.post('/parkings/start', [
 });
 
 parkRouter.post('/parkings/end', [
-  express.json(),
   header('Authorization').not().isEmpty().isUUID(),
   check('userId').not().isEmpty(),
   check('parkingId').not().isEmpty(),

@@ -13,39 +13,40 @@ const {
 } = require('../blocs/car');
 
 const carRouter = new express.Router();
+carRouter.use(express.json());
 
 const add = async (req, res) => {
   try {
     const result = await carAdd(req.body);
-    return res.status(HttpStatus.OK).send({
+    return res.status(HttpStatus.OK).json({
       validate: {
         validateId: result.validateId,
       }
     });
   } catch (e) {
-    res.status(HttpStatus.BAD_REQUEST).send({});
+    res.status(HttpStatus.BAD_REQUEST).json({});
   }
 };
 
 const addValidate = async (req, res) => {
   try {
     const result = await carAddValidate(req.body);
-    return res.status(HttpStatus.OK).send({
+    return res.status(HttpStatus.OK).json({
       car: result.car,
     });
   } catch (e) {
-    res.status(HttpStatus.BAD_REQUEST).send({});
+    res.status(HttpStatus.BAD_REQUEST).json({});
   }
 };
 
 const remove = async (req, res) => {
   try {
     const car = await carRemove(req.body);
-    return res.status(HttpStatus.OK).send({
+    return res.status(HttpStatus.OK).json({
       car,
     });
   } catch (e) {
-    res.status(HttpStatus.BAD_REQUEST).send({});
+    res.status(HttpStatus.BAD_REQUEST).json({});
   }
 };
 

@@ -1,8 +1,7 @@
 const moment = require('moment');
-const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
-const endpointSecret = process.env.STRIPE_WEB_HOOK_SECRET_KEY;
 const {
   create: payCreate,
+  pay: payPay,
 } = require('../proxies/pay');
 const {
   User,
@@ -34,23 +33,14 @@ const create = async (data) => {
 };
 
 const pay = async (req) => {
-  const sig = req.headers['stripe-signature'];
-  console.log('avi');
-  const event = stripe.webhooks.constructEvent(req.body, sig, endpointSecret);
-  console.log('avi2');
-  if (event.type === 'checkout.session.completed') {
-    const session = event.data.object;
-    const metadata = JSON.parse(session.client_reference_id);
-    const user = await User.findById(metadata.userId).populate('payment');
-    if (!user || !user.payment || user.payment.id !== metadata.paymentId) {
-      throw new Error();
-    }
-    user.payment = undefined;
-    user.parking = undefined;
-    await user.save();
-  } else {
+  const result = await payPay(req);
+  const user = await User.findById(result.userId).populate('payment');
+  if (!user || !user.payment || user.payment.id !== result.paymentId) {
     throw new Error();
   }
+  user.payment = undefined;
+  user.parking = undefined;
+  await user.save();
 };
 
 module.exports = {

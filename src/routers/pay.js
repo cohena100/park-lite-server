@@ -24,17 +24,6 @@ const pay = async (req, res) => {
   }
 };
 
-payRouter.post('/pay/webhook', [
-  check('userId').not().isEmpty(),
-  check('paymentId').not().isEmpty(),
-], async (req, res) => {
-  const errors = validationResult(req);
-  if (!errors.isEmpty()) {
-    return res.status(HttpStatus.BAD_REQUEST).json({});
-  }
-  await pay(req, res);
-});
-
 payRouter.post('/payments/webhook', bodyParser.raw({
   type: 'application/json'
 }), async (req, res) => {

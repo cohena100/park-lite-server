@@ -13,40 +13,41 @@ const {
 } = require('../blocs/user');
 
 const userRouter = new express.Router();
+userRouter.use(express.json());
 
 const loginUser = async (req, res) => {
   try {
     const result = await login(req.body);
-    return res.status(HttpStatus.OK).send({
+    return res.status(HttpStatus.OK).json({
       validate: {
         userId: result.userId,
         validateId: result.validateId,
       }
     });
   } catch (e) {
-    res.status(HttpStatus.BAD_REQUEST).send({});
+    res.status(HttpStatus.BAD_REQUEST).json({});
   }
 };
 
 const loginValidateUser = async (req, res) => {
   try {
     const result = await loginValidate(req.body);
-    return res.status(HttpStatus.OK).send({
+    return res.status(HttpStatus.OK).json({
       user: result.user,
     });
   } catch (e) {
-    res.status(HttpStatus.BAD_REQUEST).send({});
+    res.status(HttpStatus.BAD_REQUEST).json({});
   }
 };
 
 const logoutUser = async (req, res) => {
   try {
     const result = await logout(req.body);
-    return res.status(HttpStatus.OK).send({
+    return res.status(HttpStatus.OK).json({
       user: result.user,
     });
   } catch (e) {
-    res.status(HttpStatus.BAD_REQUEST).send({});
+    res.status(HttpStatus.BAD_REQUEST).json({});
   }
 };
 

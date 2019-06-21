@@ -64,7 +64,7 @@ const sendEnd = (data, token) => {
 };
 
 const sendPayWebhook = (data) => {
-  return request(app).post('/pay/webhook').send(data);
+  return request(app).post('/payments/webhook').send(data);
 };
 
 const loginUser1 = () => {
@@ -363,6 +363,10 @@ describe('parking operations', () => {
 
   test('Should be able to pay for ended parking', async () => {
     await startAndEndParkUser1();
+    pay.pay.mockResolvedValue({
+      userId: user1.userId,
+      paymentId: payData.paymentId,
+    });
     const res = await paymentUser1().expect(HttpStatus.OK);
     var user = await User.findById(user1.userId);
     expect(user).not.toHaveProperty('parking', 'payment');

@@ -1,5 +1,5 @@
-const sk = process.env.STRIPE_SECRET_KEY;
-const stripe = require('stripe')(sk);
+const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
+const endpointSecret = process.env.STRIPE_WEB_HOOK_SECRET_KEY;
 
 const create = async (data) => {
   const session = await stripe.checkout.sessions.create({
@@ -23,6 +23,18 @@ const create = async (data) => {
   };
 };
 
+const pay = async (req) => {
+  const sig = req.headers['stripe-signature'];
+  const event = stripe.webhooks.constructEvent(req.body, sig, endpointSecret);
+  if (event.type === 'checkout.session.completed') {
+    const session = event.data.object;
+    const metadata = JSON.parse(session.client_reference_id);
+    return metadata;
+  }
+  throw new Error();
+};
+
 module.exports = {
   create,
+  pay,
 };
