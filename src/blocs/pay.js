@@ -14,7 +14,7 @@ const create = async (data) => {
   const parking = data.parking;
   const start = moment(parking.startDate);
   const end = moment(parking.endDate);
-  const duration = moment.duration(end.diff(start));
+  const duration = moment.duration(end.diff(start)).asSeconds();
   const amount = parking.ratePrice * duration;
   const session = await payCreate();
   const payment = new Payment({

@@ -24,8 +24,8 @@ const pay = async (req, res) => {
 };
 
 payRouter.post('/pay/webhook', [
-  check('paymentId').not().isEmpty(),
   check('userId').not().isEmpty(),
+  check('paymentId').not().isEmpty(),
 ], async (req, res) => {
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
