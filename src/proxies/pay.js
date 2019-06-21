@@ -13,10 +13,6 @@ const create = async (data) => {
       amount: 1500,
       currency: 'usd',
       quantity: 1,
-      metadata: {
-        'userId': data.userId,
-        'paymentId': data.paymentId,
-      },
     }],
     success_url: 'https://stormy-dusk-75310.herokuapp.com/payments/success',
     cancel_url: 'https://stormy-dusk-75310.herokuapp.com/payments/cancel',
