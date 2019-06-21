@@ -34,11 +34,13 @@ const create = async (data) => {
 };
 
 const pay = async (req) => {
+  console.log('avi');
   const sig = req.headers['stripe-signature'];
+  console.log(sig);
+  console.log(endpointSecret);
   const event = stripe.webhooks.constructEvent(req.body, sig, endpointSecret);
+  console.log('avi2');
   if (event.type === 'checkout.session.completed') {
-    console.log('avi');
-    console.log(JSON.stringify(event));
     const session = event.data.object;
     const metadata = JSON.parse(session.client_reference_id);
     const user = await User.findById(metadata.userId).populate('payment');

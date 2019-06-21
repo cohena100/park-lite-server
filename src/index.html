@@ -12,10 +12,9 @@
 <body>
     <div class="container">
         <div class="jumbotron">
-            <h1>res.sendFile() Works!</h1>
             <script>
               const stripe = Stripe('pk_test_V4IMbysDTdphjZ7GV2f2iNSp');
-              stripe.redirectToCheckout({sessionId: 'cs_test_eVZDMa3dER6lTq8MdR3vD4wXKHnl3P7ddG56fuE5TWBwKHRPaSDR1bLk'})
+              stripe.redirectToCheckout({sessionId: 'cs_test_T7Pu8CWBjG3P5mEGaT9d98htdpCurDBaSA9vg4bxWXwjTtKiLxw5ObMs'})
               .then((result) => {});
             </script>
         </div>
