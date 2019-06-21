@@ -25,7 +25,9 @@ const create = async (data) => {
 
 const pay = async (req) => {
   const sig = req.headers['stripe-signature'];
+  console.log('avi');
   const event = stripe.webhooks.constructEvent(req.body, sig, endpointSecret);
+  console.log('avi2');
   if (event.type === 'checkout.session.completed') {
     const session = event.data.object;
     const metadata = JSON.parse(session.client_reference_id);
