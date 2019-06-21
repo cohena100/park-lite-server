@@ -7,7 +7,6 @@ const create = async (data) => {
     line_items: [{
       name: 'T-shirt',
       description: 'Comfortable cotton t-shirt',
-      images: ['https://example.com/t-shirt.png'],
       amount: data.amount,
       currency: 'usd',
       quantity: 1,
