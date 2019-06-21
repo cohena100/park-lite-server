@@ -14,7 +14,7 @@ const payRouter = new express.Router();
 
 const pay = async (req, res) => {
   try {
-    const result = await payPay(req.body);
+    const result = await payPay(req);
     return res.status(HttpStatus.OK).send({
       received: true,
     });
@@ -32,6 +32,22 @@ payRouter.post('/pay/webhook', [
     return res.status(HttpStatus.BAD_REQUEST).json({});
   }
   await pay(req, res);
+});
+
+payRouter.post('/payments/webhook', async (req, res) => {
+  await pay(req, res);
+});
+
+payRouter.post('/payments/success', async (req, res) => {
+  return res.status(HttpStatus.OK).send({
+    msg: 'success',
+  });
+});
+
+payRouter.post('/payments/cancel', async (req, res) => {
+  return res.status(HttpStatus.OK).send({
+    msg: 'cancel',
+  });
 });
 
 module.exports = {

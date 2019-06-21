@@ -10,7 +10,6 @@ const PaymentSchema = new Schema({
   },
   sessionId: {
     type: String,
-    required: true,
   },
   parking: {
     type: Schema.Types.ObjectId,
