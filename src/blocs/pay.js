@@ -37,6 +37,8 @@ const pay = async (req) => {
   const sig = req.headers['stripe-signature'];
   const event = stripe.webhooks.constructEvent(req.body, sig, endpointSecret);
   if (event.type === 'checkout.session.completed') {
+    console.log('avi');
+    console.log(JSON.stringify(event));
     const session = event.data.object;
     const metadata = JSON.parse(session.client_reference_id);
     const user = await User.findById(metadata.userId).populate('payment');

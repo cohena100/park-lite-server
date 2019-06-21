@@ -35,8 +35,6 @@ payRouter.post('/pay/webhook', [
 });
 
 payRouter.post('/payments/webhook', async (req, res) => {
-  console.log('avi');
-  console.log(req);
   await pay(req, res);
 });
 
