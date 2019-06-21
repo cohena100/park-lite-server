@@ -14,6 +14,8 @@ const payRouter = new express.Router();
 
 const pay = async (req, res) => {
   try {
+    console.log('avi');
+    console.log(JSON.stringify(req));
     const result = await payPay(req);
     return res.status(HttpStatus.OK).send({
       received: true,
