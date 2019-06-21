@@ -23,3 +23,7 @@ flutter pub pub run intl_translation:generate_from_arb --output-dir=lib/l10n --n
 ============================================
 user.parking = undefined;
 await user.save();
+============================================
+
+
+{"id":"cs_test_H0QawhLbuAYCWNRAJkAPkN7eyFT1UgkCFKTd4oNZEIOJu6t3CiIBM2fx","object":"checkout.session","billing_address_collection":null,"cancel_url":"https://stormy-dusk-75310.herokuapp.com/payments/cancel","client_reference_id":null,"customer":null,"customer_email":null,"display_items":[{"amount":1500,"currency":"usd","custom":{"description":"Comfortable cotton t-shirt","images":null,"name":"T-shirt"},"quantity":1,"type":"custom"}],"livemode":false,"locale":null,"payment_intent":"pi_1EnjS3G6RO1A5JeYBDm5T2WH","payment_method_types":["card"],"submit_type":null,"subscription":null,"success_url":"https://stormy-dusk-75310.herokuapp.com/payments/success"}
