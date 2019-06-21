@@ -7,7 +7,7 @@ const create = async (data) => {
     line_items: [{
       name: 'T-shirt',
       description: 'Comfortable cotton t-shirt',
-      amount: data.amount,
+      amount: 1500,
       currency: 'usd',
       quantity: 1,
       metadata: {
