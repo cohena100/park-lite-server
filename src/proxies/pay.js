@@ -2,6 +2,8 @@ const sk = process.env.STRIPE_SECRET_KEY;
 const stripe = require('stripe')(sk);
 
 const create = async (data) => {
+  console.log('avi');
+  console.log(sk);
   console.log(JSON.stringify(data));
   const session = await stripe.checkout.sessions.create({
     payment_method_types: ['card'],
