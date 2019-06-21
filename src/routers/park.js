@@ -42,6 +42,7 @@ const end = async (req, res) => {
 };
 
 parkRouter.post('/parkings/start', [
+  express.json(),
   header('Authorization').not().isEmpty().isUUID(),
   check('userId').not().isEmpty(),
   check('carId').not().isEmpty(),
@@ -63,6 +64,7 @@ parkRouter.post('/parkings/start', [
 });
 
 parkRouter.post('/parkings/end', [
+  express.json(),
   header('Authorization').not().isEmpty().isUUID(),
   check('userId').not().isEmpty(),
   check('parkingId').not().isEmpty(),

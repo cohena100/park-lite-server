@@ -21,7 +21,6 @@ app.get('/', (req, res) => {
   res.status(HttpStatus.OK).send({});
 });
 
-app.use(express.json());
 app.use(userRouter);
 app.use(parkRouter);
 app.use(carRouter);
