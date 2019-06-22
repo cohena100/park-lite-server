@@ -1,8 +1,9 @@
 ============================
 C:\Users\user\mongodb\bin\mongod.exe --dbpath=C:\Users\user\mongodb-data
 cd C:\Users\user\Documents\develop\my-web-server
-cd C:\Users\user\AndroidStudioProjects\pango_lite
+git push heroku master
 
+cd C:\Users\user\AndroidStudioProjects\pango_lite
 flutter run test\widget_test.dart
 flutter drive --target=test_driver/app.dart
 C:\src\flutter\bin\cache\dart-sdk\bin\dart.exe lib\playground\stam.dart
