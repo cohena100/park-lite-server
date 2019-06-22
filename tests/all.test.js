@@ -146,18 +146,31 @@ beforeEach(async () => {
   await Car.deleteMany();
   await Parking.deleteMany();
   await Payment.deleteMany();
+  user1 = {
+    phone: phone1,
+  };
+  validate1 = {
+    code,
+  };
+  car1 = {
+    number: number1,
+    nickname: nickname1,
+  };
+  carData = {};
+  parkingData = {
+    lat: '1',
+    lon: '2',
+    cityId: '1',
+    cityName: 'a',
+    areaId: '2',
+    areaName: 'b',
+    rateId: '1',
+    rateName: 'c',
+  };
+  payData = {};
 });
 
 describe('user login', () => {
-  beforeEach(async () => {
-    user1 = {
-      phone: phone1,
-    };
-    validate1 = {
-      code,
-    };
-    payData = {};
-  });
 
   test('Should login new user', async () => {
     var res = await sendLogin(user1).expect(HttpStatus.OK);
@@ -226,28 +239,6 @@ describe('user login', () => {
 
 describe('car operations', () => {
   beforeEach(async () => {
-    user1 = {
-      phone: phone1,
-    };
-    validate1 = {
-      code,
-    };
-    car1 = {
-      number: number1,
-      nickname: nickname1,
-    };
-    carData = {};
-    parkingData = {
-      lat: '1',
-      lon: '2',
-      cityId: '1',
-      cityName: 'a',
-      areaId: '2',
-      areaName: 'b',
-      rateId: '1',
-      rateName: 'c',
-    };
-    payData = {};
     await addUser1();
   });
 
@@ -298,27 +289,6 @@ describe('car operations', () => {
 
 describe('parking operations', () => {
   beforeEach(async () => {
-    user1 = {
-      phone: phone1,
-    };
-    validate1 = {
-      code,
-    };
-    car1 = {
-      number: number1,
-      nickname: nickname1,
-    };
-    parkingData = {
-      lat: '1',
-      lon: '2',
-      cityId: '8',
-      cityName: 'a',
-      areaId: '9',
-      areaName: 'b',
-      rateId: '1',
-      rateName: 'c',
-    };
-    payData = {};
     await addUser1andCar1();
   });
 
@@ -349,16 +319,17 @@ describe('parking operations', () => {
     await endParkingUser1().expect(HttpStatus.BAD_REQUEST);
   });
 
-  test('Should return existing car and parking after login verify', async () => {
-    await parkUser1();
-    const res = await loginAndValidateUser1();
-    expect(res.body).toHaveProperty('user.parking.cityId');
-    expect(res.body.user.cars[0].car).toHaveProperty('number');
-  });
-
   test('Should request validate after token validation failed', async () => {
     await sendLogout(user1, user1.token).expect(HttpStatus.OK);
     await startParkingUser1().expect(HttpStatus.UNAUTHORIZED);
+  });
+
+  test('Should return existing car, parking and payment after login verify', async () => {
+    await startAndEndParkUser1();
+    const res = await loginAndValidateUser1();
+    expect(res.body.user.cars[0].car).toHaveProperty('number');
+    expect(res.body).toHaveProperty('user.parking.cityId');
+    expect(res.body).toHaveProperty('user.payment.sessionId');
   });
 
   test('Should be able to pay for ended parking', async () => {

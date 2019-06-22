@@ -34,7 +34,7 @@ const login = async (data) => {
 
 const loginValidate = async (data) => {
   const user = await User.findById(data.userId)
-    .populate('cars.car').populate('parking');
+    .populate('cars.car').populate('parking').populate('payment');
   if (!user) {
     throw new Error();
   }
