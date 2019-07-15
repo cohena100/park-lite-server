@@ -14,6 +14,9 @@ const {
 const {
   payRouter
 } = require('./routers/pay');
+const {
+  adminUserRouter
+} = require('./routers/adminUser');
 
 const app = express();
 
@@ -25,6 +28,7 @@ app.use(payRouter);
 app.use(userRouter);
 app.use(parkRouter);
 app.use(carRouter);
+app.use(adminUserRouter);
 
 app.get('/pay', function(req, res) {
   res.sendFile(path.join(__dirname, '/index.html'));
