@@ -1,7 +1,13 @@
 ============================
 C:\Users\user\mongodb\bin\mongod.exe --dbpath=C:\Users\user\mongodb-data
+C:\MongoDB\Server\3.4\bin\mongod.exe\" --service --config=\"C:\MongoDB\mongod.cfg
 cd C:\Users\user\Documents\develop\my-web-server
 git push heroku master
+
+"C:\Program Files\MongoDB\Server\4.0\bin\mongod.exe" --dbpath=C:\Users\cohen\Documents\develop\mongodb-data
+
+
+
 
 cd C:\Users\user\AndroidStudioProjects\pango_lite
 flutter run test\widget_test.dart
