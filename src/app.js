@@ -1,7 +1,9 @@
 const path = require('path');
 const express = require('express');
+const cors = require('cors');
 const HttpStatus = require('http-status-codes');
 require('./db/db');
+
 const {
   userRouter
 } = require('./routers/user');
@@ -19,6 +21,8 @@ const {
 } = require('./routers/adminUser');
 
 const app = express();
+
+app.use(cors());
 
 app.get('/', (req, res) => {
   res.status(HttpStatus.OK).send({});
