@@ -1,13 +1,10 @@
-============================
 C:\Users\user\mongodb\bin\mongod.exe --dbpath=C:\Users\user\mongodb-data
-C:\MongoDB\Server\3.4\bin\mongod.exe\" --service --config=\"C:\MongoDB\mongod.cfg
 cd C:\Users\user\Documents\develop\my-web-server
+npm run dev
 git push heroku master
+cd Documents\develop\park-lite-web
 
 "C:\Program Files\MongoDB\Server\4.0\bin\mongod.exe" --dbpath=C:\Users\cohen\Documents\develop\mongodb-data
-
-
-
 
 cd C:\Users\user\AndroidStudioProjects\pango_lite
 flutter run test\widget_test.dart
@@ -28,17 +25,3 @@ https://youtu.be/IhsHGJEOSYM
 flutter pub pub run intl_translation:extract_to_arb --output-dir=lib/l10n lib/locale/locale.dart
 flutter pub pub run intl_translation:generate_from_arb --output-dir=lib/l10n --no-use-deferred-loading lib/l10n/intl_he.arb lib/l10n/intl_en.arb lib/l10n/intl_messages.arb lib/locale/locale.dart
 ============================================
-user.parking = undefined;
-await user.save();
-============================================
-
-payRouter.post('/pay/webhook', [
-  check('userId').not().isEmpty(),
-  check('paymentId').not().isEmpty(),
-], async (req, res) => {
-  const errors = validationResult(req);
-  if (!errors.isEmpty()) {
-    return res.status(HttpStatus.BAD_REQUEST).json({});
-  }
-  await pay(req, res);
-});
