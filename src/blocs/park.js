@@ -3,7 +3,9 @@ const {
 } = require('../models/user');
 const Parking = require('../models/parking');
 const Car = require('../models/car');
-const geoPark = require('../data/geo_park.json');
+const {
+  geoPark
+} = require('../proxies/shared');
 
 const start = async (data) => {
   const user = data.user;

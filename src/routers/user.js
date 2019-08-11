@@ -32,9 +32,7 @@ const loginUser = async (req, res) => {
 const loginValidateUser = async (req, res) => {
   try {
     const result = await loginValidate(req.body);
-    return res.status(HttpStatus.OK).json({
-      user: result.user,
-    });
+    return res.status(HttpStatus.OK).json(result);
   } catch (e) {
     res.status(HttpStatus.BAD_REQUEST).json({});
   }

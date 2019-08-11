@@ -8,6 +8,9 @@ const {
   pushValidate,
   pullValidate,
 } = require('./helpers');
+const {
+  geoPark
+} = require('../proxies/shared');
 
 const login = async (data) => {
   const user = await User.findOne({
@@ -43,6 +46,7 @@ const loginValidate = async (data) => {
   await user.save();
   return {
     user,
+    geoPark
   };
 };
 

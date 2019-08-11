@@ -257,6 +257,7 @@ describe('user login', () => {
     expect(res.body).toHaveProperty('user.phone', user1.phone);
     expect(res.body).toHaveProperty('user.token');
     expect(userId).toEqual(res.body.user._id);
+    expect(res.body).toHaveProperty('geoPark');
   });
 
   test('Should create login type validate in db', async () => {
