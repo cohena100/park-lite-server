@@ -15,8 +15,8 @@ const create = async (data) => {
       'userId': data.userId,
       'paymentId': data.paymentId,
     }),
-    success_url: 'https://stormy-dusk-75310.herokuapp.com/payments/success',
-    cancel_url: 'https://stormy-dusk-75310.herokuapp.com/payments/cancel',
+    success_url: 'http://localhost:8080/paymentSuccess',
+    cancel_url: 'http://localhost:8080/paymentCancel',
   });
   return {
     id: session.id,
