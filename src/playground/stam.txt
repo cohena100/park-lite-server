@@ -2,7 +2,8 @@ C:\Users\user\mongodb\bin\mongod.exe --dbpath=C:\Users\user\mongodb-data
 cd C:\Users\user\Documents\develop\my-web-server
 npm run dev
 git push heroku master
-cd Documents\develop\park-lite-web
+
+cd C:\Users\user\Documents\develop\park-lite-web
 
 "C:\Program Files\MongoDB\Server\4.0\bin\mongod.exe" --dbpath=C:\Users\cohen\Documents\develop\mongodb-data
 
