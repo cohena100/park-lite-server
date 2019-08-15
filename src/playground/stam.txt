@@ -2,6 +2,10 @@ C:\Users\user\mongodb\bin\mongod.exe --dbpath=C:\Users\user\mongodb-data
 cd C:\Users\user\Documents\develop\my-web-server
 ngrok http 3000
 cd C:\Users\user\Documents\develop\park-lite-web
+
+"C:\Program Files\MongoDB\Server\4.0\bin\mongod.exe" --dbpath=C:\Users\cohen\Documents\develop\mongodb-data
+"C:\Program Files\MongoDB\Server\4.0\bin\mongo.exe" pango-lite-test --eval "db.dropDatabase()"
+
 cd C:\Users\user\AndroidStudioProjects\pango_lite
 
 flutter run test\widget_test.dart
