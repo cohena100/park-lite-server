@@ -5,8 +5,8 @@ const create = async (data) => {
   const session = await stripe.checkout.sessions.create({
     payment_method_types: ['card'],
     line_items: [{
-      name: 'T-shirt',
-      description: 'Comfortable cotton t-shirt',
+      name: 'Parking',
+      description: 'Payment for on street parking',
       amount: 1500,
       currency: 'usd',
       quantity: 1,
