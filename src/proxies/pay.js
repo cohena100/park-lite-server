@@ -15,10 +15,8 @@ const create = async (data) => {
       'userId': data.userId,
       'paymentId': data.paymentId,
     }),
-    // success_url: 'http://localhost:8080/paymentSuccess',
-    // cancel_url: 'http://localhost:8080/paymentCancel',
-    success_url: 'https://wonderful-kilby-08bc18.netlify.com/paymentSuccess',
-    cancel_url: 'https://wonderful-kilby-08bc18.netlify.com/paymentCancel',
+    success_url: process.env.STRIPE_SUCCESS_URL,
+    cancel_url: process.env.STRIPE_CANCEL_URL,
   });
   return {
     id: session.id,
