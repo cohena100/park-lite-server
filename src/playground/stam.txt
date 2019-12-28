@@ -1,3 +1,4 @@
+Windows:
 C:\Users\user\mongodb\bin\mongod.exe --dbpath=C:\Users\user\mongodb-data
 cd C:\Users\user\Documents\develop\my-web-server
 ngrok http 3000
@@ -8,7 +9,8 @@ cd C:\Users\user\Documents\develop\park-lite-web
 
 cd C:\Users\user\AndroidStudioProjects\pango_lite
 
-flutter run test\widget_test.dart
+Mac:
+flutter run test/widget_test.dart
 flutter drive --target=test_driver/app.dart
 C:\src\flutter\bin\cache\dart-sdk\bin\dart.exe lib\playground\stam.dart
 "C:\Program Files\MongoDB\Server\4.0\bin\mongod.exe" --dbpath=C:\Users\cohen\Documents\develop\mongodb-data
@@ -29,3 +31,15 @@ https://youtu.be/IhsHGJEOSYM
 flutter pub pub run intl_translation:extract_to_arb --output-dir=lib/l10n lib/locale/locale.dart
 flutter pub pub run intl_translation:generate_from_arb --output-dir=lib/l10n --no-use-deferred-loading lib/l10n/intl_he.arb lib/l10n/intl_en.arb lib/l10n/intl_messages.arb lib/locale/locale.dart
 ============================================
+/Users/avicohen/Documents/develop/mobile-app/build/app/outputs/bundle/release/app-release.aab
+/Users/avicohen/Documents/develop/mobile-app/build/app/outputs/bundle/release/app.aab
+============================================
+sbt new playframework/play-scala-seed.g8
+============================================
+
+
+First of all I want to inform you that I have never once listened to Dance Gavin Dance OR the original Emarosa line-up. However, I have been a big Circa Survive and Saosin (Green moreso but Cove is OK) since both bands' inception. I saw "Relativity" in a Hot Topic. The album sticker said for fans of Circa and Saosin, and after several minutes of "do i need to spend this money?" I cracked and bought it. This has gotten me into trouble before. I spend a significant amount of money on albums, sometimes just on a whim, knowing nothing about the band in question. This has ended up biting me in the @ss with some real bad music before. But this time, I was pleasently suprised. Craig's opening vocal display on "The Past Should Stay Dead" came as close to taking my breath away (in a completely heterosexual way mind you) as i've experienced since first hearing "Translating the Name" years back. I'm hooked. This band is the best thing to come out since Secret and Whisper. Some say their sound is played, or Craig's vocal stylings are typical of the genre, but I must dissagree. Sure, a "genre" will have those who sound like others of the same style and get lost in the shuffle, which is why a group like Emarosa is that much more impressive. They are able to take the typical and warp it with talent and emotion to set themselves apart.
+
+If you buy one prog album this year, make it "Relativity."
+
+Saosin, Chasing Victory , and Jimmy Eat World
